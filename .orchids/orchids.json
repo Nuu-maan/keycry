@@ -1,7 +1,0 @@
-{
-  "projectId": "36e731f3-3b37-42a2-a772-d54bf3fefb15",
-  "createdAt": 1765369991906,
-  "startupCommands": [
-    "cd C:\\tools\\backup\\Projects\\keycry\\keycry; bun run dev"
-  ]
-}
