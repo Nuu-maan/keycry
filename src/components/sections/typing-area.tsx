@@ -1,3 +1,6 @@
+import React from "react";
+import { Lock, Globe, MousePointer2 } from "lucide-react";
+
 export default function TypingArea() {
   const [typedHistory, setTypedHistory] = React.useState<string>("");
   const [startTime, setStartTime] = React.useState<number | null>(null);
@@ -6,7 +9,6 @@ export default function TypingArea() {
   const [isFocused, setIsFocused] = React.useState(true);
   const [cursorPos, setCursorPos] = React.useState({ top: 0, left: 0 });
   const [capsLock, setCapsLock] = React.useState(false);
-  const [wpm, setWpm] = React.useState(0);
   const [stats, setStats] = React.useState({ time: 0, wpm: 0, acc: 100, burst: 0 });
   
   const containerRef = React.useRef<HTMLDivElement>(null);

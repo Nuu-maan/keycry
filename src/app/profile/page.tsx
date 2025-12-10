@@ -3,6 +3,16 @@ import { redirect } from "next/navigation";
 import MainLayout from "@/components/layouts/main-layout";
 import { ProfileStats } from "@/components/profile-stats";
 
+interface TypingResult {
+  id: string;
+  wpm: number;
+  raw_wpm: number;
+  accuracy: number;
+  test_mode: string;
+  test_duration: number;
+  created_at: string;
+}
+
 export default async function ProfilePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
@@ -36,7 +46,7 @@ export default async function ProfilePage() {
   );
 }
 
-function calculateProfileStats(results: any[]) {
+function calculateProfileStats(results: TypingResult[]) {
   if (results.length === 0) {
     return {
       testsCompleted: 0,

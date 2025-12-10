@@ -1,6 +1,6 @@
 "use client";
 
-import { Calendar, Clock, Target, Trophy, Zap, TrendingUp, Share2 } from "lucide-react";
+import { Clock, Target, Trophy, Zap, TrendingUp, Share2 } from "lucide-react";
 import { useState } from "react";
 
 interface Profile {
@@ -12,6 +12,11 @@ interface Profile {
   created_at: string;
 }
 
+interface BestResultData {
+  wpm: number;
+  accuracy: number;
+}
+
 interface Stats {
   testsCompleted: number;
   testsStarted: number;
@@ -21,14 +26,14 @@ interface Stats {
   averageAccuracy: number;
   recentAvgWpm: number;
   bestResults: {
-    time15: any;
-    time30: any;
-    time60: any;
-    time120: any;
-    words10: any;
-    words25: any;
-    words50: any;
-    words100: any;
+    time15: BestResultData | null;
+    time30: BestResultData | null;
+    time60: BestResultData | null;
+    time120: BestResultData | null;
+    words10: BestResultData | null;
+    words25: BestResultData | null;
+    words50: BestResultData | null;
+    words100: BestResultData | null;
   };
 }
 
@@ -198,7 +203,7 @@ function StatCard({
   );
 }
 
-function BestResult({ label, result }: { label: string; result: any }) {
+function BestResult({ label, result }: { label: string; result: BestResultData | null }) {
   return (
     <div className="bg-[#1e1e1e] rounded-lg p-3">
       <p className="text-[#646669] text-sm mb-1">{label}</p>

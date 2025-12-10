@@ -7,6 +7,16 @@ interface Props {
   params: Promise<{ username: string }>;
 }
 
+interface TypingResult {
+  id: string;
+  wpm: number;
+  raw_wpm: number;
+  accuracy: number;
+  test_mode: string;
+  test_duration: number;
+  created_at: string;
+}
+
 export default async function PublicProfilePage({ params }: Props) {
   const { username } = await params;
   const supabase = await createClient();
@@ -40,7 +50,7 @@ export default async function PublicProfilePage({ params }: Props) {
   );
 }
 
-function calculateProfileStats(results: any[]) {
+function calculateProfileStats(results: TypingResult[]) {
   if (results.length === 0) {
     return {
       testsCompleted: 0,

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { calculateStats, getCharacterStatuses, type TypingStats } from "@/lib/typing";
 import { generateWords, getRandomQuote } from "@/lib/words";
-import { RotateCcw, Globe, MousePointer2, Trophy, Target, Zap, Clock, Check } from "lucide-react";
+import { RotateCcw, Globe, MousePointer2, Target, Zap, Check } from "lucide-react";
 
 type TestMode = "time" | "words" | "quote" | "zen";
 type TimeLimit = 15 | 30 | 60 | 120;
@@ -90,6 +90,7 @@ export function TypingTest() {
 
   useEffect(() => {
     resetTest();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [config.mode, config.wordCount, config.timeLimit]);
 
   useEffect(() => {
@@ -117,6 +118,7 @@ export function TypingTest() {
     }, 100);
     
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive, isFinished, startTime, config.mode, config.timeLimit, typedText, text]);
 
   const finishTest = (typed: string, original: string, time: number) => {
@@ -165,7 +167,7 @@ export function TypingTest() {
 
   const words = text.split(" ");
   let charCount = 0;
-  const wordsWithMeta = words.map((word, idx) => {
+  const wordsWithMeta = words.map((word) => {
     const start = charCount;
     charCount += word.length + 1;
     return { word, start, end: charCount - 1 };
@@ -293,7 +295,6 @@ export function TypingTest() {
         >
           {wordsWithMeta.map((wordMeta, wIdx) => {
             const isCurrentWord = wIdx === currentWordIndex;
-            const isPastWord = wIdx < currentWordIndex;
             
             return (
               <span key={wIdx} className="inline-block mr-3 mb-1 will-change-transform">
