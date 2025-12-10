@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Trophy, Clock, Zap, Calendar } from "lucide-react";
+import { Trophy, Zap, Calendar } from "lucide-react";
 
 interface LeaderboardResult {
   id: string;
