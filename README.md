@@ -56,7 +56,7 @@ KeyCry is an open-source typing test platform that helps users measure and impro
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/keycry.git
+git clone https://github.com/nuu-maan/keycry.git
 cd keycry
 ```
 
