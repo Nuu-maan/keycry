@@ -14,7 +14,10 @@ interface LeaderboardResult {
   profiles: {
     username: string;
     display_name: string | null;
-  } | null;
+  } | {
+    username: string;
+    display_name: string | null;
+  }[] | null;
 }
 
 type TimeFilter = "all" | "daily";
@@ -47,7 +50,8 @@ export function LeaderboardTabs({
 
   const userBestMap = new Map<string, LeaderboardResult>();
   filteredResults.forEach((result) => {
-    const username = result.profiles?.username || "anonymous";
+    const profile = Array.isArray(result.profiles) ? result.profiles[0] : result.profiles;
+    const username = profile?.username || "anonymous";
     const existing = userBestMap.get(username);
     if (!existing || result.wpm > existing.wpm) {
       userBestMap.set(username, result);
@@ -140,43 +144,46 @@ export function LeaderboardTabs({
               </tr>
             </thead>
             <tbody>
-              {leaderboard.map((result, index) => (
-                <tr
-                  key={result.id}
-                  className={`border-t border-[#404040]/50 hover:bg-[#3d3d3d]/50 transition-colors ${
-                    index < 3 ? "bg-[#ffc800]/5" : ""
-                  }`}
-                >
-                  <td className="py-4 px-6">
-                    {index === 0 ? (
-                      <span className="text-[#ffd700] text-lg">1</span>
-                    ) : index === 1 ? (
-                      <span className="text-[#c0c0c0] text-lg">2</span>
-                    ) : index === 2 ? (
-                      <span className="text-[#cd7f32] text-lg">3</span>
-                    ) : (
-                      <span className="text-[#646669]">{index + 1}</span>
-                    )}
-                  </td>
-                  <td className="py-4 px-6">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#404040] flex items-center justify-center text-[#ffc800] text-sm font-bold">
-                        {result.profiles?.username?.[0]?.toUpperCase() || "?"}
+              {leaderboard.map((result, index) => {
+                const profile = Array.isArray(result.profiles) ? result.profiles[0] : result.profiles;
+                return (
+                  <tr
+                    key={result.id}
+                    className={`border-t border-[#404040]/50 hover:bg-[#3d3d3d]/50 transition-colors ${
+                      index < 3 ? "bg-[#ffc800]/5" : ""
+                    }`}
+                  >
+                    <td className="py-4 px-6">
+                      {index === 0 ? (
+                        <span className="text-[#ffd700] text-lg">1</span>
+                      ) : index === 1 ? (
+                        <span className="text-[#c0c0c0] text-lg">2</span>
+                      ) : index === 2 ? (
+                        <span className="text-[#cd7f32] text-lg">3</span>
+                      ) : (
+                        <span className="text-[#646669]">{index + 1}</span>
+                      )}
+                    </td>
+                    <td className="py-4 px-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-[#404040] flex items-center justify-center text-[#ffc800] text-sm font-bold">
+                          {profile?.username?.[0]?.toUpperCase() || "?"}
+                        </div>
+                        <span className="text-[#d0d0d0] font-medium">
+                          {profile?.display_name || profile?.username || "Anonymous"}
+                        </span>
                       </div>
-                      <span className="text-[#d0d0d0] font-medium">
-                        {result.profiles?.display_name || result.profiles?.username || "Anonymous"}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="py-4 px-6 text-[#ffc800] font-bold text-lg">{result.wpm}</td>
-                  <td className="py-4 px-6 text-[#888888] hidden md:table-cell">{result.raw_wpm}</td>
-                  <td className="py-4 px-6 text-[#d0d0d0]">{Number(result.accuracy).toFixed(1)}%</td>
-                  <td className="py-4 px-6 text-[#646669] hidden md:table-cell">
-                    {result.test_mode} {result.test_duration}
-                  </td>
-                  <td className="py-4 px-6 text-[#646669] hidden lg:table-cell">{formatDate(result.created_at)}</td>
-                </tr>
-              ))}
+                    </td>
+                    <td className="py-4 px-6 text-[#ffc800] font-bold text-lg">{result.wpm}</td>
+                    <td className="py-4 px-6 text-[#888888] hidden md:table-cell">{result.raw_wpm}</td>
+                    <td className="py-4 px-6 text-[#d0d0d0]">{Number(result.accuracy).toFixed(1)}%</td>
+                    <td className="py-4 px-6 text-[#646669] hidden md:table-cell">
+                      {result.test_mode} {result.test_duration}
+                    </td>
+                    <td className="py-4 px-6 text-[#646669] hidden lg:table-cell">{formatDate(result.created_at)}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}
