@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # KeyCry
 
 A fast, minimal typing speed test application inspired by MonkeyType. Built with modern web technologies for a smooth, responsive typing experience.
@@ -196,3 +197,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - [MonkeyType](https://monkeytype.com) - Design inspiration
 - [shadcn/ui](https://ui.shadcn.com) - UI components
 - [Supabase](https://supabase.com) - Backend services
+=======
+# keycry
+Track your typing speed. Compete. Improve. Built with Next.js.
+>>>>>>> 9eef644fa5640c5d437185cb6fe12c2560122923
