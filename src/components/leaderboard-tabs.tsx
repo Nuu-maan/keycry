@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Trophy, Zap, Calendar } from "lucide-react";
 
-interface LeaderboardResult {
+export interface LeaderboardResult {
   id: string;
   wpm: number;
   raw_wpm: number;

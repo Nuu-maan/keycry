@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import MainLayout from "@/components/layouts/main-layout";
-import { LeaderboardTabs } from "@/components/leaderboard-tabs";
+import { LeaderboardTabs, type LeaderboardResult } from "@/components/leaderboard-tabs";
 
 export default async function LeaderboardsPage() {
   const supabase = await createClient();
@@ -51,7 +51,10 @@ export default async function LeaderboardsPage() {
         <div className="max-w-[1000px] mx-auto">
           <h1 className="text-3xl font-bold text-[#d0d0d0] mb-2">Leaderboards</h1>
           <p className="text-[#646669] mb-8">See how you stack up against the fastest typists</p>
-          <LeaderboardTabs allTimeResults={allTimeResults || []} dailyResults={dailyResults || []} />
+          <LeaderboardTabs 
+            allTimeResults={(allTimeResults || []) as LeaderboardResult[]} 
+            dailyResults={(dailyResults || []) as LeaderboardResult[]} 
+          />
         </div>
       </div>
     </MainLayout>
